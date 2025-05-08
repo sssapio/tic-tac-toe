@@ -1,6 +1,7 @@
 body {
   background-color: #101218;
   color: white;
+  font-family: Roboto, sans-serif;
 }
 
 .button {
@@ -73,7 +74,7 @@ button {
   border-radius: 10px;
   margin-bottom: 30px;
   font-size: 22px;
-  gap: 20px;
+  gap: 35px;
 }
 .score-container {
   display: flex;

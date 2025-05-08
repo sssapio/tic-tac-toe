@@ -17,12 +17,18 @@ const GameBoard = (() => {
   const resetBtn = document.querySelector("#restart");
   const o = document.querySelector("#o-user");
   const x = document.querySelector("#x-user");
+  const o1 = document.querySelector("#o-score");
+  const x1 = document.querySelector("#x-score");
 
-  const xInput = prompt("Enter player 1's name:");
-  const oInput = prompt("Enter player 2's name:");
+  let xInput = "";
+  let oInput = "";
+  setTimeout(() => {
+    xInput = prompt("Enter player 1's name:");
+    oInput = prompt("Enter player 2's name:");
+    x.innerHTML = xInput;
+    o.innerHTML = oInput;
+  }, 200);
 
-  x.innerHTML = xInput;
-  o.innerHTML = oInput;
   let xScore1 = 0;
   let oScore2 = 0;
 
@@ -31,13 +37,13 @@ const GameBoard = (() => {
   let gameOver = false;
 
   const winningCombos = [
-    [0, 1, 2], // rows
+    [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
-    [0, 3, 6], // columns
+    [0, 3, 6],
     [1, 4, 7],
     [2, 5, 8],
-    [0, 4, 8], // diagonals
+    [0, 4, 8],
     [2, 4, 6],
   ];
 
@@ -47,6 +53,11 @@ const GameBoard = (() => {
     if (board[index] === "" && !gameOver) {
       board[index] = currentPlayer;
       buttons[index].innerHTML = `<p>${currentPlayer}</p>`;
+      if (currentPlayer === "X") {
+        x1.style.borderBottom = "1px solid #14bdac";
+      } else {
+        o1.style.borderBottom = "1px solid blue";
+      }
       if (checkWinner()) {
         setTimeout(() => {
           if (currentPlayer === "X") {
@@ -73,6 +84,13 @@ const GameBoard = (() => {
 
   const switchPlayer = () => {
     currentPlayer = currentPlayer === "X" ? "O" : "X";
+    if (currentPlayer === "X") {
+      x1.style.borderBottom = "1px solid #14bdac";
+      o1.style.borderBottom = "none";
+    } else {
+      o1.style.borderBottom = "1px solid #14bdac";
+      x1.style.borderBottom = "none";
+    }
   };
 
   const checkWinner = () => {
@@ -86,7 +104,7 @@ const GameBoard = (() => {
     buttons.forEach((btn, index) => {
       btn.addEventListener("click", () => placeMarker(index));
     });
-
+    x1.style.borderBottom = "1px solid #14bdac";
     resetBtn.addEventListener("click", resetBoard);
   };
 
@@ -96,6 +114,8 @@ const GameBoard = (() => {
     hasWon.innerHTML = "";
     currentPlayer = "X";
     gameOver = false;
+    x1.style.borderBottom = "1px solid #14bdac";
+    o1.style.borderBottom = "none";
   };
 
   return { setupGame, getBoard };
