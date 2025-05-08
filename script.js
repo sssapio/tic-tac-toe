@@ -76,6 +76,12 @@ const GameBoard = (() => {
           oScore.innerHTML = oScore2;
         }
         gameOver = true;
+      } else if (!checkWinner() && board.every((cell) => cell !== "")) {
+        hasWon.innerHTML = "It's a draw";
+        gameOver = true;
+        setTimeout(() => {
+          resetBoard();
+        }, 500);
       } else {
         switchPlayer();
       }
